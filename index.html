@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нашия дневник 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #ff1493;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.2);
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #ff69b4;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* СЕКЦИЯ ЗА КАЧВАНЕ НА СНИМКИ */
+        .upload-section {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+        }
+
+        .upload-section h2 {
+            color: #ff1493;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .upload-area {
+            border: 3px dashed #ff69b4;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #ffd1e8;
+        }
+
+        .upload-area:hover {
+            background: #ffb8d9;
+            transform: scale(1.02);
+        }
+
+        .upload-area.active {
+            background: #ff69b4;
+            color: white;
+        }
+
+        .upload-area p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .upload-area.active p {
+            color: white;
+        }
+
+        #photoInput {
+            display: none;
+        }
+
+        .upload-progress {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff1493, #ff69b4);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* СЕКЦИЯ ЗА ИСТОРИЯ */
+        .story-section {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+        }
+
+        .story-section h2 {
+            color: #ff1493;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .story-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            color: #ff1493;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 12px;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1em;
+            resize: vertical;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            max-height: 300px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff1493;
+            box-shadow: 0 0 10px rgba(255, 20, 147, 0.3);
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 20, 147, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        /* ГАЛЕРИЯ */
+        .gallery-section {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+            grid-column: 1 / -1;
+        }
+
+        .gallery-section h2 {
+            color: #ff1493;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+
+        .del-btn {
+            background: #ff4444;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .del-btn:hover {
+            background: #ff0000;
+        }
+
+        /* ИСТОРИИ */
+        .stories-section {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+            grid-column: 1 / -1;
+        }
+
+        .stories-section h2 {
+            color: #ff1493;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .stories-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .story-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #ff69b4;
+            position: relative;
+        }
+
+        .story-card h3 {
+            color: #ff1493;
+            margin-bottom: 10px;
+        }
+
+        .story-card .date {
+            color: #999;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .story-card p {
+            color: #555;
+            line-height: 1.6;
+            word-wrap: break-word;
+        }
+
+        .story-card .delete-story {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+
+        .story-card .delete-story:hover {
+            background: #ff0000;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #999;
+            padding: 40px 20px;
+            font-size: 1.1em;
+        }
+
+        /* МОДАЛ ЗА ПРЕГЛЕД НА СНИМКА */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: #ff1493;
+            font-size: 2em;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .close-modal:hover {
+            color: #ff69b4;
+        }
+
+        .status-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            z-index: 999;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .status-message.success {
+            background: #4caf50;
+            color: white;
+        }
+
+        .status-message.error {
+            background: #ff4444;
+            color: white;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💕 Нашия дневник 💕</h1>
+            <p>Споделяме моменти и спомени заедно</p>
+        </header>
+
+        <div class="main-content">
+            <!-- КАЧВАНЕ НА СНИМКИ -->
+            <div class="upload-section">
+                <h2>📸 Качи наша снимка</h2>
+                <div class="upload-area" id="uploadArea">
+                    <p>🖼️ Клацни или пусни снимка тук</p>
+                    <small style="color: #999;">Максимумен размер: 5MB</small>
+                </div>
+                <div class="upload-progress" id="uploadProgress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p id="uploadStatus">Качване...</p>
+                </div>
+                <input type="file" id="photoInput" accept="image/*">
+            </div>
+
+            <!-- ПИСАНЕ НА ИСТОРИЯ -->
+            <div class="story-section">
+                <h2>📖 Новo послание</h2>
+                <form class="story-form" id="storyForm">
+                    <div class="form-group">
+                        <label for="storyTitle">Заглавие</label>
+                        <input type="text" id="storyTitle" placeholder="Напр. Деня на нашата среща 💕" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="storyContent">История или послание</label>
+                        <textarea id="storyContent" placeholder="Напиши някое сладко послание или историята на този момент на нашия живот..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Запази 💖</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ГАЛЕРИЯ СА СНИМКИ -->
+        <div class="gallery-section">
+            <h2>🖼️ Нашите снимки</h2>
+            <div class="gallery-grid" id="gallery">
+                <div class="empty-message">Още няма снимки. Качи първата наша снимка!</div>
+            </div>
+        </div>
+
+        <!-- СПИСЪК СА ИСТОРИИ -->
+        <div class="stories-section">
+            <h2>📚 Нашите истории</h2>
+            <div class="stories-list" id="storiesList">
+                <div class="empty-message">Още няма истории. Напиши още прав послание!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДАЛ ЗА ПРЕГЛЕД -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <img id="modalImage" src="" alt="">
+        </div>
+    </div>
+
+    <!-- СТАТУС СЪОБЩЕНИЯ -->
+    <div id="statusMessage" class="status-message"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import { getStorage, ref, uploadBytes, getBytes, deleteObject, listAll } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-storage.js";
+        import { getFirestore, collection, addDoc, query, orderBy, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+        // КОНФИГУРАЦИЯ НА FIREBASE - ЗАМЕНИ С ТВОИТЕ ДАННИ!
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // ВНИМАНИЕ: Ако използваш Firefox или локално, заменете адреса горе!
+        // За локално тестване без Firebase, запази данните в localStorage
+
+        const app = initializeApp(firebaseConfig);
+        const storage = getStorage(app);
+        const db = getFirestore(app);
+
+        // DOM ЕЛЕМЕНТИ
+        const uploadArea = document.getElementById('uploadArea');
+        const photoInput = document.getElementById('photoInput');
+        const storyForm = document.getElementById('storyForm');
+        const gallery = document.getElementById('gallery');
+        const storiesList = document.getElementById('storiesList');
+        const statusMessage = document.getElementById('statusMessage');
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.getElementById('closeModal');
+
+        // ФУНКЦИЯ ЗА ПОКАЗВАНЕ НА СЪОБЩЕНИЕ
+        function showStatus(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.className = `status-message ${type}`;
+            statusMessage.style.display = 'block';
+            setTimeout(() => {
+                statusMessage.style.display = 'none';
+            }, 3000);
+        }
+
+        // ФУНКЦИЯ ЗА КАЧВАНЕ НА СНИМКА
+        uploadArea.addEventListener('click', () => photoInput.click());
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('active');
+        });
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('active');
+        });
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('active');
+            if (e.dataTransfer.files.length) {
+                uploadPhoto(e.dataTransfer.files[0]);
+            }
+        });
+
+        photoInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                uploadPhoto(e.target.files[0]);
+            }
+        });
+
+        async function uploadPhoto(file) {
+            if (file.size > 5 * 1024 * 1024) {
+                showStatus('Файлът е твърде голям! Максимум 5MB', 'error');
+                return;
+            }
+
+            try {
+                document.getElementById('uploadProgress').style.display = 'block';
+                const timestamp = new Date().getTime();
+                const filename = `photos/${timestamp}_${file.name}`;
+                const storageRef = ref(storage, filename);
+
+                await uploadBytes(storageRef, file);
+                showStatus('✅ Снимката е качена успешно!', 'success');
+                document.getElementById('uploadProgress').style.display = 'none';
+                loadPhotos();
+            } catch (error) {
+                showStatus('❌ Грешка при качване!', 'error');
+                console.error(error);
+            }
+        }
+
+        async function loadPhotos() {
+            try {
+                const listRef = ref(storage, 'photos/');
+                const result = await listAll(listRef);
+                gallery.innerHTML = '';
+
+                if (result.items.length === 0) {
+                    gallery.innerHTML = '<div class="empty-message" style="grid-column: 1 / -1;">Още няма снимки. Качи първата наша снимка!</div>';
+                    return;
+                }
+
+                for (const item of result.items) {
+                    const imageRef = ref(storage, item.fullPath);
+                    const blob = await getBytes(imageRef);
+                    const url = URL.createObjectURL(blob);
+
+                    const div = document.createElement('div');
+                    div.className = 'gallery-item';
+                    div.innerHTML = `
+                        <img src="${url}" alt="Снимка">
+                        <div class="gallery-item-overlay">
+                            <button class="del-btn" onclick="deletePhoto('${item.fullPath}')">Изтрий</button>
+                        </div>
+                    `;
+                    div.querySelector('img').addEventListener('click', () => {
+                        modalImage.src = url;
+                        imageModal.style.display = 'block';
+                    });
+                    gallery.appendChild(div);
+                }
+            } catch (error) {
+                console.error('Грешка при зареждане на снимки:', error);
+            }
+        }
+
+        window.deletePhoto = async function(path) {
+            if (confirm('Сигурна ли си, че искаш да изтриеш тази снимка?')) {
+                try {
+                    const fileRef = ref(storage, path);
+                    await deleteObject(fileRef);
+                    showStatus('✅ Снимката е изтрита!', 'success');
+                    loadPhotos();
+                } catch (error) {
+                    showStatus('❌ Грешка при изтриване!', 'error');
+                }
+            }
+        };
+
+        // ФУНКЦИЯ ЗА ДОБАВЯНЕ НА ИСТОРИЯ
+        storyForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const title = document.getElementById('storyTitle').value;
+            const content = document.getElementById('storyContent').value;
+
+            try {
+                await addDoc(collection(db, 'stories'), {
+                    title,
+                    content,
+                    timestamp: new Date(),
+                    createdAt: new Date().toISOString()
+                });
+                showStatus('✅ История запазена успешно!', 'success');
+                storyForm.reset();
+                loadStories();
+            } catch (error) {
+                showStatus('❌ Грешка при запазване!', 'error');
+                console.error(error);
+            }
+        });
+
+        async function loadStories() {
+            try {
+                const q = query(collection(db, 'stories'), orderBy('timestamp', 'desc'));
+                const querySnapshot = await getDocs(q);
+                storiesList.innerHTML = '';
+
+                if (querySnapshot.empty) {
+                    storiesList.innerHTML = '<div class="empty-message">Още няма истории. Напиши първото послание!</div>';
+                    return;
+                }
+
+                querySnapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const date = new Date(data.createdAt).toLocaleDateString('bg-BG');
+
+                    const card = document.createElement('div');
+                    card.className = 'story-card';
+                    card.innerHTML = `
+                        <button class="delete-story" onclick="deleteStory('${docSnap.id}')">Изтрий</button>
+                        <h3>${data.title}</h3>
+                        <div class="date">${date}</div>
+                        <p>${data.content}</p>
+                    `;
+                    storiesList.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Грешка при зареждане на истории:', error);
+            }
+        }
+
+        window.deleteStory = async function(id) {
+            if (confirm('Сигурна ли си, че искаш да изтриеш тази история?')) {
+                try {
+                    await deleteDoc(doc(db, 'stories', id));
+                    showStatus('✅ История изтрита!', 'success');
+                    loadStories();
+                } catch (error) {
+                    showStatus('❌ Грешка при изтриване!', 'error');
+                }
+            }
+        };
+
+        // ЗАТВАРЯНЕМЕ В МОДАЛА
+        closeModal.addEventListener('click', () => {
+            imageModal.style.display = 'none';
+        });
+        imageModal.addEventListener('click', (e) => {
+            if (e.target === imageModal) {
+                imageModal.style.display = 'none';
+            }
+        });
+
+        // ЗАРЕЖДАНЕ НА ДАННИ ПРИ СТРАНИЦА
+        loadPhotos();
+        loadStories();
+    </script>
+</body>
+</html>
