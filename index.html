@@ -1,723 +1,675 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Нашия дневник 💕</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>За теб, с любов 🫙</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --yellow:#FFD93D; --pink:#FF6B9D; --purple:#A855F7;
+      --blue:#4ECDC4; --orange:#FF9A3C; --green:#6BCB77;
+      --red:#FF5757; --cream:#FFFBF0; --ink:#2D2D2D;
+      --ink-soft:#6B5E5E; --radius:20px;
+      --font-display:'Fredoka One',cursive;
+      --font-body:'Nunito',sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--cream);color:var(--ink);font-family:var(--font-body);overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background-image:
+      radial-gradient(circle at 15% 20%,rgba(255,107,157,.10) 0%,transparent 40%),
+      radial-gradient(circle at 85% 15%,rgba(78,205,196,.10) 0%,transparent 40%),
+      radial-gradient(circle at 10% 80%,rgba(168,85,247,.08) 0%,transparent 40%),
+      radial-gradient(circle at 90% 75%,rgba(255,217,61,.12) 0%,transparent 40%);
+      pointer-events:none;z-index:0}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
+    .petals-container{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+    .petal{position:absolute;top:-80px;animation:fallDown linear infinite;user-select:none}
+    @keyframes fallDown{0%{transform:translateY(0) rotate(0);opacity:0}5%{opacity:1}100%{transform:translateY(110vh) rotate(720deg) translateX(60px);opacity:0}}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;
+      justify-content:space-between;padding:.8rem 1.5rem;
+      background:rgba(255,251,240,.92);backdrop-filter:blur(14px);
+      border-bottom:3px solid transparent;
+      border-image:linear-gradient(90deg,var(--pink),var(--yellow),var(--blue),var(--purple)) 1}
+    .nav-logo{font-family:var(--font-display);font-size:1.3rem;
+      background:linear-gradient(135deg,var(--pink),var(--purple));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .nav-links{display:flex;gap:.4rem}
+    .nav-link{font-family:var(--font-body);font-size:.78rem;font-weight:700;letter-spacing:.06em;
+      text-transform:uppercase;color:var(--ink-soft);text-decoration:none;
+      padding:.4rem .9rem;border-radius:50px;transition:all .2s}
+    .nav-link:hover,.nav-link.active{background:linear-gradient(135deg,var(--pink),var(--orange));
+      color:white;transform:translateY(-2px)}
 
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: #ff1493;
-        }
+    .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;
+      align-items:center;padding:7rem 5vw 4rem;position:relative;z-index:1;gap:2rem}
+    .hero-eyebrow{font-size:.85rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+      color:var(--pink);margin-bottom:.8rem;display:flex;align-items:center;gap:.4rem}
+    .hero-eyebrow::before,.hero-eyebrow::after{content:'✦';color:var(--yellow)}
+    .hero-title{font-family:var(--font-display);font-size:clamp(2.5rem,6vw,5.5rem);
+      line-height:1.1;color:var(--ink);margin-bottom:1.2rem}
+    .hero-title em{font-style:normal;background:linear-gradient(135deg,var(--pink),var(--purple),var(--blue));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-sub{font-size:1rem;color:var(--ink-soft);font-weight:600}
+    .hero-jar{font-size:clamp(4rem,12vw,10rem);text-align:center;
+      animation:floatJar 3s ease-in-out infinite;
+      filter:drop-shadow(0 10px 28px rgba(255,107,157,.25))}
+    @keyframes floatJar{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-16px) rotate(3deg)}}
 
-        header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.2);
-        }
+    .section{padding:5rem 5vw;position:relative;z-index:1}
+    .alt-section{background:linear-gradient(180deg,rgba(78,205,196,.06) 0%,rgba(255,107,157,.04) 100%)}
+    .section-title{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);
+      color:var(--ink);margin-bottom:.5rem;text-align:center;
+      display:inline-block;position:relative;left:50%;transform:translateX(-50%)}
+    .section-title::after{content:'';display:block;height:4px;border-radius:2px;
+      background:linear-gradient(90deg,var(--pink),var(--yellow),var(--blue));margin-top:.4rem}
+    .section-title em{font-style:normal;color:var(--pink)}
+    .section-sub{text-align:center;color:var(--ink-soft);font-size:.95rem;font-weight:600;
+      margin-bottom:2.5rem;margin-top:.5rem}
 
-        header p {
-            font-size: 1.1em;
-            color: #ff69b4;
-        }
+    .mood-selector{text-align:center;margin-bottom:2.5rem}
+    .mood-label{font-family:var(--font-display);font-size:1.5rem;color:var(--ink);margin-bottom:1rem}
+    .mood-tabs{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
+    .mood-tab{font-family:var(--font-body);font-size:.85rem;font-weight:700;
+      padding:.55rem 1.2rem;border:3px solid rgba(0,0,0,.12);border-radius:50px;
+      background:white;color:var(--ink);cursor:pointer;
+      transition:all .22s cubic-bezier(.34,1.56,.64,1);box-shadow:0 3px 10px rgba(0,0,0,.08)}
+    .mood-tab:hover{transform:translateY(-4px) scale(1.05)}
+    .mood-tab.active{background:var(--clr);border-color:var(--clr);
+      transform:translateY(-4px) scale(1.06);box-shadow:4px 4px 0 var(--ink)}
 
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
+    .jar-area{display:flex;justify-content:center;margin-bottom:2rem}
+    .jar-visual{position:relative;width:150px;cursor:pointer;transition:transform .3s}
+    .jar-visual:hover{transform:scale(1.06) rotate(2deg)}
+    .jar-lid{width:100px;height:22px;background:linear-gradient(135deg,var(--orange),var(--yellow));
+      border-radius:12px 12px 0 0;margin:0 auto;border:3px solid var(--ink);border-bottom:none}
+    .jar-body{width:150px;height:180px;
+      background:linear-gradient(160deg,rgba(255,255,255,.85) 0%,rgba(255,251,240,.70) 100%);
+      border:3px solid var(--ink);border-radius:14px 14px 32px 32px;
+      display:flex;align-items:flex-end;justify-content:center;
+      overflow:hidden;padding-bottom:10px;
+      box-shadow:inset 5px 0 14px rgba(255,255,255,.5),4px 6px 0 var(--ink);position:relative}
+    .jar-body::before{content:'';position:absolute;top:10px;left:14px;width:16px;bottom:10px;
+      background:linear-gradient(180deg,rgba(255,255,255,.6) 0%,rgba(255,255,255,0) 100%);border-radius:8px}
+    .notes-pile{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;align-items:flex-end;padding:0 8px;width:100%}
+    .mini-note{width:26px;height:20px;border-radius:4px;border:2px solid rgba(0,0,0,.15)}
+    .jar-visual.shake{animation:jarShake .5s ease}
+    @keyframes jarShake{0%{transform:rotate(0)}15%{transform:rotate(-8deg) scale(1.05)}30%{transform:rotate(8deg) scale(1.06)}45%{transform:rotate(-5deg)}60%{transform:rotate(5deg)}75%{transform:rotate(-2deg)}100%{transform:rotate(0)}}
 
-        /* СЕКЦИЯ ЗА КАЧВАНЕ НА СНИМКИ */
-        .upload-section {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
-        }
+    .note-display{display:flex;flex-direction:column;align-items:center;gap:1.5rem;max-width:500px;margin:0 auto}
+    .note-card{width:100%;min-height:130px;background:var(--yellow);
+      border-radius:var(--radius);border:3px solid var(--ink);
+      padding:1.8rem 2rem;display:flex;align-items:center;justify-content:center;
+      text-align:center;box-shadow:5px 6px 0 var(--ink);transition:background .35s;position:relative}
+    .note-card::before{content:'· · ·';position:absolute;top:10px;right:14px;
+      font-size:1.1rem;color:rgba(0,0,0,.12);letter-spacing:.3em}
+    .note-text{font-family:var(--font-body);font-size:1.05rem;font-weight:600;line-height:1.65;color:var(--ink)}
+    .note-card.pop{animation:popNote .4s cubic-bezier(.36,.07,.19,.97)}
+    @keyframes popNote{0%{transform:scale(.93) rotate(-1deg)}50%{transform:scale(1.04) rotate(1deg)}100%{transform:scale(1) rotate(0)}}
+    .draw-btn{font-family:var(--font-display);font-size:1rem;padding:.8rem 2.5rem;
+      background:linear-gradient(135deg,var(--pink),var(--purple));
+      color:white;border:3px solid var(--ink);border-radius:50px;cursor:pointer;
+      box-shadow:4px 4px 0 var(--ink);transition:all .22s cubic-bezier(.34,1.56,.64,1)}
+    .draw-btn:hover{transform:translateY(-4px) scale(1.04);box-shadow:6px 8px 0 var(--ink)}
 
-        .upload-section h2 {
-            color: #ff1493;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
+    /* ADD FORM */
+    .add-form{max-width:600px;margin:0 auto 3rem;background:white;
+      border-radius:var(--radius);border:3px solid var(--ink);
+      padding:2rem;box-shadow:5px 6px 0 var(--ink)}
+    .add-form-title{font-family:var(--font-display);font-size:1.4rem;margin-bottom:.5rem;color:var(--ink)}
+    .add-form-hint{font-size:.82rem;color:var(--ink-soft);font-weight:600;margin-bottom:1.2rem;
+      background:rgba(255,217,61,.3);padding:.6rem 1rem;border-radius:10px;border-left:3px solid var(--yellow)}
+    .add-form-hint a{color:var(--pink);font-weight:700}
+    .upload-fields{display:flex;flex-direction:column;gap:.8rem}
+    .upload-input{padding:.7rem 1rem;border:2.5px solid var(--ink);border-radius:12px;
+      font-family:var(--font-body);font-size:.95rem;outline:none;background:white}
+    .upload-input:focus{border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,107,157,.15)}
+    textarea.upload-input{resize:vertical;min-height:120px}
+    .upload-btn{padding:.75rem 2rem;background:linear-gradient(135deg,var(--green),var(--blue));
+      color:white;border:2.5px solid var(--ink);border-radius:50px;
+      font-family:var(--font-display);font-size:1rem;cursor:pointer;
+      box-shadow:3px 3px 0 var(--ink);transition:all .2s;align-self:flex-start}
+    .upload-btn:hover{transform:translateY(-3px);box-shadow:5px 5px 0 var(--ink)}
+    .upload-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
 
-        .upload-area {
-            border: 3px dashed #ff69b4;
-            border-radius: 15px;
-            padding: 40px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: #ffd1e8;
-        }
+    /* PREVIEW */
+    .img-preview{width:100%;max-height:200px;object-fit:cover;border-radius:12px;
+      border:2.5px solid var(--ink);display:none}
 
-        .upload-area:hover {
-            background: #ffb8d9;
-            transform: scale(1.02);
-        }
+    /* GALLERY */
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+      gap:1.2rem;max-width:1100px;margin:0 auto}
+    .gallery-item{position:relative;border-radius:var(--radius);overflow:hidden;
+      cursor:pointer;aspect-ratio:4/3;border:3px solid var(--ink);
+      box-shadow:5px 6px 0 var(--ink);transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s}
+    .gallery-item:hover{transform:translateY(-6px) rotate(-1deg);box-shadow:8px 10px 0 var(--ink)}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+    .gallery-item:hover img{transform:scale(1.08)}
+    .gallery-overlay{position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(30,10,10,.75) 0%,transparent 55%);
+      display:flex;flex-direction:column;justify-content:flex-end;
+      padding:1rem;opacity:0;transition:opacity .3s}
+    .gallery-item:hover .gallery-overlay{opacity:1}
+    .gallery-caption{color:white;font-weight:700;font-size:.9rem}
+    .gallery-date{color:rgba(255,255,255,.75);font-size:.72rem;font-weight:600}
+    .del-btn{position:absolute;top:8px;right:8px;background:var(--red);color:white;
+      border:2px solid white;border-radius:50%;width:28px;height:28px;
+      font-size:.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+      opacity:0;transition:opacity .2s;z-index:2}
+    .gallery-item:hover .del-btn{opacity:1}
+    .empty-msg{grid-column:1/-1;text-align:center;padding:3rem;color:var(--ink-soft);
+      font-weight:600;border:3px dashed rgba(0,0,0,.15);border-radius:var(--radius)}
 
-        .upload-area.active {
-            background: #ff69b4;
-            color: white;
-        }
+    .lightbox{position:fixed;inset:0;background:rgba(20,10,5,.92);z-index:200;
+      display:flex;align-items:center;justify-content:center;
+      flex-direction:column;gap:1rem;opacity:0;pointer-events:none;transition:opacity .3s}
+    .lightbox.open{opacity:1;pointer-events:all}
+    .lightbox-img{max-width:90vw;max-height:80vh;border-radius:var(--radius);
+      border:4px solid white;box-shadow:0 20px 80px rgba(0,0,0,.5);transition:opacity .2s}
+    .lightbox-caption{color:rgba(255,255,255,.85);font-weight:700}
+    .lightbox-close{position:absolute;top:1.5rem;right:2rem;background:var(--pink);
+      border:3px solid white;color:white;width:40px;height:40px;border-radius:50%;
+      cursor:pointer;transition:transform .2s;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem}
+    .lightbox-close:hover{transform:scale(1.15) rotate(90deg)}
+    .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);
+      background:var(--yellow);border:3px solid var(--ink);color:var(--ink);
+      font-size:1.6rem;width:50px;height:50px;border-radius:50%;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:3px 3px 0 var(--ink);font-weight:700;transition:transform .2s}
+    .lightbox-nav:hover{transform:translateY(-50%) scale(1.12)}
+    .lightbox-nav.prev{left:1.5rem}
+    .lightbox-nav.next{right:1.5rem}
 
-        .upload-area p {
-            font-size: 1.2em;
-            color: #666;
-            margin-bottom: 10px;
-        }
+    .stories-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+      gap:1.2rem;max-width:1100px;margin:0 auto}
+    .story-card{background:white;border-radius:var(--radius);padding:1.6rem;
+      border:3px solid var(--ink);border-top-width:6px;
+      box-shadow:5px 6px 0 var(--ink);transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s;
+      display:flex;flex-direction:column;gap:.5rem;position:relative}
+    .story-card:hover{transform:translateY(-5px) rotate(1deg);box-shadow:8px 10px 0 var(--ink)}
+    .story-emoji{font-size:1.8rem}
+    .story-date{font-size:.73rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pink);font-weight:700}
+    .story-title{font-family:var(--font-display);font-size:1.2rem;color:var(--ink)}
+    .story-preview{font-size:.85rem;color:var(--ink-soft);line-height:1.6;flex:1;font-weight:600}
+    .story-read-btn{margin-top:.8rem;align-self:flex-start;font-family:var(--font-display);
+      font-size:.88rem;padding:.45rem 1.2rem;border-radius:50px;border:2.5px solid var(--ink);
+      background:var(--yellow);color:var(--ink);cursor:pointer;
+      box-shadow:3px 3px 0 var(--ink);transition:all .2s}
+    .story-read-btn:hover{background:var(--pink);color:white;transform:translateY(-3px)}
+    .story-del-btn{position:absolute;top:10px;right:10px;background:var(--red);color:white;
+      border:2px solid var(--ink);border-radius:50%;width:26px;height:26px;
+      font-size:.75rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+      box-shadow:2px 2px 0 var(--ink);opacity:0;transition:opacity .2s}
+    .story-card:hover .story-del-btn{opacity:1}
 
-        .upload-area.active p {
-            color: white;
-        }
+    .story-modal{position:fixed;inset:0;background:rgba(20,10,5,.75);z-index:200;
+      display:flex;align-items:center;justify-content:center;padding:1.5rem;
+      opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(6px)}
+    .story-modal.open{opacity:1;pointer-events:all}
+    .story-modal-inner{background:var(--cream);border-radius:28px;max-width:600px;width:100%;
+      max-height:82vh;overflow-y:auto;padding:2.5rem;position:relative;
+      border:3px solid var(--ink);box-shadow:8px 10px 0 var(--ink)}
+    .story-close{position:absolute;top:1rem;right:1rem;background:var(--red);
+      border:2.5px solid var(--ink);color:white;width:34px;height:34px;border-radius:50%;
+      cursor:pointer;display:flex;align-items:center;justify-content:center;
+      font-weight:700;box-shadow:2px 2px 0 var(--ink);transition:transform .2s}
+    .story-close:hover{transform:scale(1.12) rotate(90deg)}
+    .story-modal-emoji{font-size:2.5rem;margin-bottom:.5rem}
+    .story-modal-title{font-family:var(--font-display);font-size:1.8rem;color:var(--ink);margin-bottom:.3rem}
+    .story-modal-date{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--pink);font-weight:700;margin-bottom:1.2rem}
+    .story-modal-body{font-size:.98rem;line-height:1.85;color:var(--ink);font-weight:600;white-space:pre-wrap}
 
-        #photoInput {
-            display: none;
-        }
+    .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);
+      background:var(--ink);color:white;padding:.8rem 2rem;border-radius:50px;
+      font-weight:700;z-index:999;transition:transform .3s;pointer-events:none;white-space:nowrap}
+    .toast.show{transform:translateX(-50%) translateY(0)}
 
-        .upload-progress {
-            margin-top: 20px;
-            display: none;
-        }
+    .footer{text-align:center;padding:2rem;font-family:var(--font-display);font-size:1rem;
+      background:linear-gradient(135deg,var(--pink),var(--purple),var(--blue));color:white}
 
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: #ddd;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #ff1493, #ff69b4);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        /* СЕКЦИЯ ЗА ИСТОРИЯ */
-        .story-section {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
-        }
-
-        .story-section h2 {
-            color: #ff1493;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-
-        .story-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            color: #ff1493;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            padding: 12px;
-            border: 2px solid #ff69b4;
-            border-radius: 10px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 1em;
-            resize: vertical;
-        }
-
-        .form-group textarea {
-            min-height: 150px;
-            max-height: 300px;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #ff1493;
-            box-shadow: 0 0 10px rgba(255, 20, 147, 0.3);
-        }
-
-        .btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255, 20, 147, 0.4);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-
-        .btn-secondary {
-            background: #f0f0f0;
-            color: #666;
-            margin-top: 10px;
-        }
-
-        .btn-secondary:hover {
-            background: #e0e0e0;
-        }
-
-        /* ГАЛЕРИЯ */
-        .gallery-section {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
-            grid-column: 1 / -1;
-        }
-
-        .gallery-section h2 {
-            color: #ff1493;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.2);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.05);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .gallery-item-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .gallery-item:hover .gallery-item-overlay {
-            opacity: 1;
-        }
-
-        .del-btn {
-            background: #ff4444;
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .del-btn:hover {
-            background: #ff0000;
-        }
-
-        /* ИСТОРИИ */
-        .stories-section {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
-            grid-column: 1 / -1;
-        }
-
-        .stories-section h2 {
-            color: #ff1493;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-
-        .stories-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .story-card {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 15px;
-            border-left: 5px solid #ff69b4;
-            position: relative;
-        }
-
-        .story-card h3 {
-            color: #ff1493;
-            margin-bottom: 10px;
-        }
-
-        .story-card .date {
-            color: #999;
-            font-size: 0.9em;
-            margin-bottom: 10px;
-        }
-
-        .story-card p {
-            color: #555;
-            line-height: 1.6;
-            word-wrap: break-word;
-        }
-
-        .story-card .delete-story {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #ff4444;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.8em;
-        }
-
-        .story-card .delete-story:hover {
-            background: #ff0000;
-        }
-
-        .empty-message {
-            text-align: center;
-            color: #999;
-            padding: 40px 20px;
-            font-size: 1.1em;
-        }
-
-        /* МОДАЛ ЗА ПРЕГЛЕД НА СНИМКА */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
-        .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border-radius: 15px;
-            max-width: 90%;
-            max-height: 90%;
-        }
-
-        .modal-content img {
-            max-width: 100%;
-            max-height: 80vh;
-            object-fit: contain;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            color: #ff1493;
-            font-size: 2em;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-
-        .close-modal:hover {
-            color: #ff69b4;
-        }
-
-        .status-message {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: 10px;
-            font-weight: bold;
-            z-index: 999;
-            display: none;
-            animation: slideIn 0.3s ease;
-        }
-
-        .status-message.success {
-            background: #4caf50;
-            color: white;
-        }
-
-        .status-message.error {
-            background: #ff4444;
-            color: white;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(400px);
-            }
-            to {
-                transform: translateX(0);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-
-            header h1 {
-                font-size: 1.8em;
-            }
-
-            .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-        }
-    </style>
+    @media(max-width:768px){
+      .hero{grid-template-columns:1fr;text-align:center;padding-top:6rem;gap:1rem}
+      .hero-eyebrow{justify-content:center}
+      .hero-jar{order:-1;font-size:4.5rem}
+      .nav{padding:.7rem 1rem}
+      .nav-links{gap:.2rem}
+      .nav-link{font-size:.72rem;padding:.35rem .7rem}
+      .section{padding:4rem 1rem}
+    }
+    @media(max-width:480px){
+      .mood-tab{font-size:.78rem;padding:.42rem .85rem}
+      .gallery-grid{grid-template-columns:1fr 1fr;gap:.7rem}
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>💕 Нашия дневник 💕</h1>
-            <p>Споделяме моменти и спомени заедно</p>
-        </header>
 
-        <div class="main-content">
-            <!-- КАЧВАНЕ НА СНИМКИ -->
-            <div class="upload-section">
-                <h2>📸 Качи наша снимка</h2>
-                <div class="upload-area" id="uploadArea">
-                    <p>🖼️ Клацни или пусни снимка тук</p>
-                    <small style="color: #999;">Максимумен размер: 5MB</small>
-                </div>
-                <div class="upload-progress" id="uploadProgress">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
-                    <p id="uploadStatus">Качване...</p>
-                </div>
-                <input type="file" id="photoInput" accept="image/*">
-            </div>
+  <div class="petals-container" id="petals"></div>
 
-            <!-- ПИСАНЕ НА ИСТОРИЯ -->
-            <div class="story-section">
-                <h2>📖 Новo послание</h2>
-                <form class="story-form" id="storyForm">
-                    <div class="form-group">
-                        <label for="storyTitle">Заглавие</label>
-                        <input type="text" id="storyTitle" placeholder="Напр. Деня на нашата среща 💕" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="storyContent">История или послание</label>
-                        <textarea id="storyContent" placeholder="Напиши някое сладко послание или историята на този момент на нашия живот..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Запази 💖</button>
-                </form>
-            </div>
-        </div>
+  <nav class="nav">
+    <div class="nav-logo">🫙 За теб</div>
+    <div class="nav-links">
+      <a href="#jar-section"     class="nav-link active" data-section="jar">Листчета</a>
+      <a href="#gallery-section" class="nav-link"        data-section="gallery">Снимки</a>
+      <a href="#stories-section" class="nav-link"        data-section="stories">Историйки</a>
+    </div>
+  </nav>
 
-        <!-- ГАЛЕРИЯ СА СНИМКИ -->
-        <div class="gallery-section">
-            <h2>🖼️ Нашите снимки</h2>
-            <div class="gallery-grid" id="gallery">
-                <div class="empty-message">Още няма снимки. Качи първата наша снимка!</div>
-            </div>
-        </div>
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">СПЕЦИАЛНО ЗА</p>
+      <h1 class="hero-title">теб,<br/><em>с цялата ми любов</em></h1>
+      <p class="hero-sub">Избери листче спрямо настроението си ♡</p>
+    </div>
+    <div class="hero-jar">🫙</div>
+  </section>
 
-        <!-- СПИСЪК СА ИСТОРИИ -->
-        <div class="stories-section">
-            <h2>📚 Нашите истории</h2>
-            <div class="stories-list" id="storiesList">
-                <div class="empty-message">Още няма истории. Напиши още прав послание!</div>
-            </div>
-        </div>
+  <section class="section" id="jar-section">
+    <div class="mood-selector">
+      <p class="mood-label">Как се чувстваш сега?</p>
+      <div class="mood-tabs">
+        <button class="mood-tab active" data-mood="happy"     style="--clr:#FFD93D">😊 Щастлива</button>
+        <button class="mood-tab"        data-mood="sad"       style="--clr:#90B4CE">😢 Тъжна</button>
+        <button class="mood-tab"        data-mood="angry"     style="--clr:#FF5757">😤 Ядосана</button>
+        <button class="mood-tab"        data-mood="tired"     style="--clr:#6BCB77">😴 Изморена</button>
+        <button class="mood-tab"        data-mood="motivated" style="--clr:#FF9A3C">🔥 Нужда от мотивация</button>
+        <button class="mood-tab"        data-mood="insecure"  style="--clr:#FF6B9D">🌸 Несигурна</button>
+      </div>
+    </div>
+    <div class="jar-area">
+      <div class="jar-visual" id="jarVisual">
+        <div class="jar-body"><div class="notes-pile" id="notesPile"></div></div>
+        <div class="jar-lid"></div>
+      </div>
+    </div>
+    <div class="note-display">
+      <div class="note-card" id="noteCard">
+        <p class="note-text" id="noteText">Можеш да натисни върху буркана за да извадиш листче ♡</p>
+      </div>
+      <button class="draw-btn" id="drawBtn">Извади листче</button>
+    </div>
+  </section>
+
+  <!-- СНИМКИ -->
+  <section class="section alt-section" id="gallery-section">
+    <h2 class="section-title">Наши снимки <em>♡</em></h2>
+    <p class="section-sub">Любимите ни моменти заедно</p>
+
+    <div class="add-form">
+      <p class="add-form-title">📸 Добави снимка</p>
+      <p class="add-form-hint">
+        Качи снимката в <a href="https://imgur.com/upload" target="_blank">imgur.com</a> →
+        копирай линка → постави го тук. От телефон: Галерия → Сподели → Копирай линк от Google Photos.
+      </p>
+      <div class="upload-fields">
+        <input class="upload-input" id="photoUrl"     placeholder="Линк към снимката (https://...)"/>
+        <img  class="img-preview"   id="imgPreview"   src="" alt="преглед"/>
+        <input class="upload-input" id="photoCaption" placeholder="Подпис (по избор)..."/>
+        <input class="upload-input" id="photoDate"    placeholder="Дата или описание (по избор)..."/>
+        <button class="upload-btn"  id="addPhotoBtn">Добави снимката 💕</button>
+      </div>
     </div>
 
-    <!-- МОДАЛ ЗА ПРЕГЛЕД -->
-    <div id="imageModal" class="modal">
-        <div class="modal-content">
-            <button class="close-modal" id="closeModal">&times;</button>
-            <img id="modalImage" src="" alt="">
-        </div>
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="empty-msg">📸 Все още няма снимки!</div>
+    </div>
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" id="lightboxClose">✕</button>
+      <button class="lightbox-nav prev" id="lightboxPrev">‹</button>
+      <img class="lightbox-img" id="lightboxImg" src="" alt=""/>
+      <p class="lightbox-caption" id="lightboxCaption"></p>
+      <button class="lightbox-nav next" id="lightboxNext">›</button>
+    </div>
+  </section>
+
+  <!-- ИСТОРИЙКИ -->
+  <section class="section" id="stories-section">
+    <h2 class="section-title">Историйки <em>♡</em></h2>
+    <p class="section-sub">Моменти, думи и всичко между нас</p>
+
+    <div class="add-form">
+      <p class="add-form-title">✍️ Добави историйка</p>
+      <div class="upload-fields">
+        <input class="upload-input" id="storyTitle"   placeholder="Заглавие..."/>
+        <input class="upload-input" id="storyDate"    placeholder="Дата"/>
+        <input class="upload-input" id="storyPreview" placeholder="Кратко описание (показва се на картичката)..."/>
+        <textarea class="upload-input" id="storyContent" placeholder="Пълен текст на историйката..."></textarea>
+        <button class="upload-btn" id="addStoryBtn">Запази историйката 💕</button>
+      </div>
     </div>
 
-    <!-- СТАТУС СЪОБЩЕНИЯ -->
-    <div id="statusMessage" class="status-message"></div>
+    <div class="stories-grid" id="storiesGrid">
+      <div class="empty-msg">✍️ Все още няма историйки!</div>
+    </div>
+  </section>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-        import { getStorage, ref, uploadBytes, getBytes, deleteObject, listAll } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-storage.js";
-        import { getFirestore, collection, addDoc, query, orderBy, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+  <div class="story-modal" id="storyModal">
+    <div class="story-modal-inner">
+      <button class="story-close" id="storyClose">✕</button>
+      <div id="storyModalContent"></div>
+    </div>
+  </div>
 
-        // КОНФИГУРАЦИЯ НА FIREBASE - ЗАМЕНИ С ТВОИТЕ ДАННИ!
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
+  <footer class="footer"><p>Направено с ♥ специално за теб, лябов</p></footer>
+  <div class="toast" id="toast"></div>
 
-        // ВНИМАНИЕ: Ако използваш Firefox или локално, заменете адреса горе!
-        // За локално тестване без Firebase, запази данните в localStorage
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy }
+  from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        const app = initializeApp(firebaseConfig);
-        const storage = getStorage(app);
-        const db = getFirestore(app);
+const firebaseConfig = {
+  apiKey:            "AIzaSyCsWP4CmP8WMzuH0a_Xfd_4w-b2pHrF_7k",
+  authDomain:        "love-jar-ce40e.firebaseapp.com",
+  projectId:         "love-jar-ce40e",
+  storageBucket:     "love-jar-ce40e.firebasestorage.app",
+  messagingSenderId: "777717972348",
+  appId:             "1:777717972348:web:83f4c7a384beab57da78f9"
+};
 
-        // DOM ЕЛЕМЕНТИ
-        const uploadArea = document.getElementById('uploadArea');
-        const photoInput = document.getElementById('photoInput');
-        const storyForm = document.getElementById('storyForm');
-        const gallery = document.getElementById('gallery');
-        const storiesList = document.getElementById('storiesList');
-        const statusMessage = document.getElementById('statusMessage');
-        const imageModal = document.getElementById('imageModal');
-        const modalImage = document.getElementById('modalImage');
-        const closeModal = document.getElementById('closeModal');
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
 
-        // ФУНКЦИЯ ЗА ПОКАЗВАНЕ НА СЪОБЩЕНИЕ
-        function showStatus(message, type) {
-            statusMessage.textContent = message;
-            statusMessage.className = `status-message ${type}`;
-            statusMessage.style.display = 'block';
-            setTimeout(() => {
-                statusMessage.style.display = 'none';
-            }, 3000);
-        }
+let photos = [], stories = [], currentPhotoIdx = 0;
+let currentMood = 'happy', shownNotes = {};
 
-        // ФУНКЦИЯ ЗА КАЧВАНЕ НА СНИМКА
-        uploadArea.addEventListener('click', () => photoInput.click());
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadArea.classList.add('active');
-        });
-        uploadArea.addEventListener('dragleave', () => {
-            uploadArea.classList.remove('active');
-        });
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadArea.classList.remove('active');
-            if (e.dataTransfer.files.length) {
-                uploadPhoto(e.dataTransfer.files[0]);
-            }
-        });
+document.addEventListener('DOMContentLoaded', () => {
+  createPetals();
+  initMoodTabs();
+  initJar();
+  initNavSmooth();
+  initLightbox();
+  initStoryModal();
+  initPhotoForm();
+  initStoryForm();
+  renderNotesPile();
+  loadPhotos();
+  loadStories();
+});
 
-        photoInput.addEventListener('change', (e) => {
-            if (e.target.files.length) {
-                uploadPhoto(e.target.files[0]);
-            }
-        });
+function createPetals() {
+  const c = document.getElementById('petals');
+  const s = ['🌸','🌺','⭐','💛','💜','🩵','🌼','✦'];
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('span'); p.className = 'petal';
+    p.textContent = s[Math.floor(Math.random() * s.length)];
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.animationDuration = (9 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * 14) + 's';
+    p.style.fontSize = (0.7 + Math.random() * 1.2) + 'rem';
+    p.style.opacity = 0.2 + Math.random() * 0.3;
+    c.appendChild(p);
+  }
+}
 
-        async function uploadPhoto(file) {
-            if (file.size > 5 * 1024 * 1024) {
-                showStatus('Файлът е твърде голям! Максимум 5MB', 'error');
-                return;
-            }
+const NOTES = {
+  happy:     { color:"#FFD93D", messages:["Твоята усмивка е любимата ми гледка. Радвам се, че днес сияеш!","Запази този момент в сърцето си. Ти заслужаваш цялото щастие на света.","Твоят смях е най-хубавата мелодия. Продължавай да озаряваш деня ми!","Щастието ти отива невероятно много. Не спирай да се усмихваш, любов моя!","Толкова се радвам за теб! Твоята радост е и моя радост.","Днес светът е по-красив, защото ти си щастлива. Обичам те!","Ти си моето слънце, което сияе по-силно когато си щастлива.","Наслади се на всеки миг от този прекрасен ден. Ти го заслужаваш!","Твоето щастие е моята най-голяма мисия. Радвам се, че днес си на върха!","Надявам се този оптимизъм те държи през целия ден. Ти си уникална!"] },
+  sad:       { color:"#90B4CE", messages:["До теб съм. Не забравяй, че след всяка буря изгрява слънце.","Позволи си да бъдеш тъжна, но не забравяй колко силна си всъщност.","Изпращам ти най-голямата си подкрепа. Всичко ще се оправи, обещавам ти.","Твоята болка е и моя. Не си сама в това, аз съм твоята опора.","Поеми си дъх. Помни, ти си ценна и обичана, дори в най-трудните моменти.","Искам да изтрия всяка твоя сълза. Ти си уникална, горе главата, миличка!","Днес може да е трудно, но утре ще бъде по-лесно. Вярвам в теб.","Не забравяй колко много хора те обичат, а аз най-много от всички.","Всичко преминава, любов моя. Нека тази бележка ти напомни, че си прекрасна.","Просто искам да знаеш, че винаги можеш да разчиташ на мен. Обичам те!"] },
+  angry:     { color:"#FF5757", messages:["Поеми дълбоко въздух. Не позволявай на гнева да засенчи твоята светлина.","Знам, че е трудно, но ти си по-умна от ситуацията. Не падай на нивото им.","Всичко ще се нареди. Не хаби енергията си за неща, които не заслужават.","Имай контрол над емоциите си. Остави гнева да си отиде и се успокой.","Искам да те прегърна и да изгоня целия стрес. Ти си невероятна!","Светът понякога е несправедлив, но ти си по-силна от всяко предизвикателство.","Нека това чувство премине през теб и си отиде. Заслужила си спокойствие.","Спокойно, любов моя. Тук съм да те изслушам, ако имаш нужда да споделиш.","Ти си по-добра от това, което те ядосва. Фокусирай се върху хубавото.","Не забравяй, че те обичам и че заедно можем да се справим с всичко."] },
+  tired:     { color:"#6BCB77", messages:["Днес си дала всичко от себе си. Време е за почивка.","Ти си истинска супержена, но дори героите имат нужда от отдих. Почини си.","Вземи си снакче, пусни си музика и забрави за всичко. Ти го заслужаваш.","Твоят труд е забележителен, но здравето ти е по-важно. Време е за релакс.","Не се насилвай. Утре е нов ден с нови сили. Сега просто почивай.","Ти правиш толкова много за всички. Никой няма да те съди ако си вземеш почивка.","Пътят към успеха е изморителен, точно за това съществува почивката.","Светът може да почака. Сега е твоето време за релакс и уют.","Затвори очи и си представи нещо красиво. Справи се страхотно днес!","Обичам те и искам да те видя отпочинала и свежа!"] },
+  motivated: { color:"#FF9A3C", messages:["Ти можеш всичко! Вярвам в твоя потенциал и знам, че ще успееш.","Не се отказвай, целта е близо. Твоята упоритост е твоето най-силно оръжие.","Ти си родена да блестиш. Всяка малка стъпка те води към победата.","Светът има нужда от таланта ти. Покажи на какво си способна любов!","Няма невъзможни неща за теб. Ти си силна, умна и невероятно смела.","Всеки ден е нова възможност да бъдеш най-добрата версия на себе си.","Твоите мечти заслужават да бъдат реалност. Работи здраво и вярвай в успеха.","Ти си вдъхновение за мен. Продължавай да твориш своята невероятна история.","Бъди смела, бъди дръзка, бъди себе си. Рецептата за успех е в теб.","Няма невъзможни неща. Опитай още един път!"] },
+  insecure:  { color:"#FF6B9D", messages:["Помни, че си най-красивият човек, когото познавам – и отвътре, и отвън. Обичам те точно такава!","Не се съмнявай в себе си. Твоите таланти и твоето сърце са напълно незаменими и уникални.","Дори когато не го виждаш, ти правиш света по-добър само с присъствието си. Ти си безценна.","Обичам всичко в теб, особено малките неща, които ти смяташ за недостатъци. За мен са съвършени.","Ти си достатъчна. Точно такава, каквато си в този момент – ти си всичко, от което имам нужда.","Светът е по-красив, защото ти си част от него. Не позволявай на никое съмнение да те спира.","Притежаваш вътрешна сила, която може да победи всяка несигурност. Аз вярвам в теб повече от всеки друг.","Спри да слушаш другите. Ти притежаваш нещо което те нямат и няма да имат!","Твоята стойност не се определя от чуждото мнение, а от добротата и светлината в теб.","Когато се чувстваш малка или несигурна, помни, че за мен ти си целият свят. Обичам те безкрайно!"] }
+};
 
-            try {
-                document.getElementById('uploadProgress').style.display = 'block';
-                const timestamp = new Date().getTime();
-                const filename = `photos/${timestamp}_${file.name}`;
-                const storageRef = ref(storage, filename);
+function initMoodTabs() {
+  document.querySelectorAll('.mood-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.mood-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentMood = tab.dataset.mood;
+      resetNote(); renderNotesPile();
+    });
+  });
+}
 
-                await uploadBytes(storageRef, file);
-                showStatus('✅ Снимката е качена успешно!', 'success');
-                document.getElementById('uploadProgress').style.display = 'none';
-                loadPhotos();
-            } catch (error) {
-                showStatus('❌ Грешка при качване!', 'error');
-                console.error(error);
-            }
-        }
+function initJar() {
+  document.getElementById('drawBtn').addEventListener('click', drawNote);
+  document.getElementById('jarVisual').addEventListener('click', drawNote);
+}
 
-        async function loadPhotos() {
-            try {
-                const listRef = ref(storage, 'photos/');
-                const result = await listAll(listRef);
-                gallery.innerHTML = '';
+function renderNotesPile() {
+  const pile = document.getElementById('notesPile'); pile.innerHTML = '';
+  const cols = ['#FFD93D','#FF6B9D','#6BCB77','#90B4CE','#FF5757','#FF9A3C','#A855F7','#4ECDC4'];
+  for (let i = 0; i < 9; i++) {
+    const n = document.createElement('div'); n.className = 'mini-note';
+    n.style.background = cols[i % cols.length];
+    n.style.transform = `rotate(${-18 + Math.random() * 36}deg)`;
+    pile.appendChild(n);
+  }
+}
 
-                if (result.items.length === 0) {
-                    gallery.innerHTML = '<div class="empty-message" style="grid-column: 1 / -1;">Още няма снимки. Качи първата наша снимка!</div>';
-                    return;
-                }
+function drawNote() {
+  const m = NOTES[currentMood];
+  if (!shownNotes[currentMood]) shownNotes[currentMood] = [];
+  let av = m.messages.filter((_, i) => !shownNotes[currentMood].includes(i));
+  if (!av.length) { shownNotes[currentMood] = []; av = [...m.messages]; }
+  const msg = av[Math.floor(Math.random() * av.length)];
+  shownNotes[currentMood].push(m.messages.indexOf(msg));
+  const card = document.getElementById('noteCard');
+  card.style.background = m.color;
+  card.classList.remove('pop'); void card.offsetWidth; card.classList.add('pop');
+  document.getElementById('noteText').textContent = msg;
+  const jar = document.getElementById('jarVisual');
+  jar.classList.add('shake'); setTimeout(() => jar.classList.remove('shake'), 500);
+}
 
-                for (const item of result.items) {
-                    const imageRef = ref(storage, item.fullPath);
-                    const blob = await getBytes(imageRef);
-                    const url = URL.createObjectURL(blob);
+function resetNote() {
+  document.getElementById('noteText').textContent = 'Натисни върху буркана за да извадиш листче ♡';
+  document.getElementById('noteCard').style.background = '';
+}
 
-                    const div = document.createElement('div');
-                    div.className = 'gallery-item';
-                    div.innerHTML = `
-                        <img src="${url}" alt="Снимка">
-                        <div class="gallery-item-overlay">
-                            <button class="del-btn" onclick="deletePhoto('${item.fullPath}')">Изтрий</button>
-                        </div>
-                    `;
-                    div.querySelector('img').addEventListener('click', () => {
-                        modalImage.src = url;
-                        imageModal.style.display = 'block';
-                    });
-                    gallery.appendChild(div);
-                }
-            } catch (error) {
-                console.error('Грешка при зареждане на снимки:', error);
-            }
-        }
+// ── СНИМКИ ───────────────────────────────────────────────
+async function loadPhotos() {
+  const snap = await getDocs(query(collection(db, 'photos'), orderBy('createdAt', 'desc')));
+  photos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  renderGallery();
+}
 
-        window.deletePhoto = async function(path) {
-            if (confirm('Сигурна ли си, че искаш да изтриеш тази снимка?')) {
-                try {
-                    const fileRef = ref(storage, path);
-                    await deleteObject(fileRef);
-                    showStatus('✅ Снимката е изтрита!', 'success');
-                    loadPhotos();
-                } catch (error) {
-                    showStatus('❌ Грешка при изтриване!', 'error');
-                }
-            }
-        };
+function renderGallery() {
+  const grid = document.getElementById('galleryGrid');
+  grid.innerHTML = '';
+  if (!photos.length) {
+    grid.innerHTML = '<div class="empty-msg">📸 Все още няма снимки — бъди първият!</div>';
+    return;
+  }
+  photos.forEach((p, i) => {
+    const item = document.createElement('div'); item.className = 'gallery-item';
+    item.innerHTML = `
+      <img src="${p.url}" alt="${p.caption||''}" loading="lazy"/>
+      <div class="gallery-overlay">
+        <p class="gallery-caption">${p.caption||''}</p>
+        ${p.date?`<span class="gallery-date">${p.date}</span>`:''}
+      </div>
+      <button class="del-btn" title="Изтрий">✕</button>`;
+    item.querySelector('img').addEventListener('click', () => openLightbox(i));
+    item.querySelector('.del-btn').addEventListener('click', e => {
+      e.stopPropagation();
+      if (confirm('Изтрий тази снимка?')) deletePhoto(p.id);
+    });
+    grid.appendChild(item);
+  });
+}
 
-        // ФУНКЦИЯ ЗА ДОБАВЯНЕ НА ИСТОРИЯ
-        storyForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const title = document.getElementById('storyTitle').value;
-            const content = document.getElementById('storyContent').value;
+function initPhotoForm() {
+  // Преглед на снимката при въвеждане на линк
+  document.getElementById('photoUrl').addEventListener('input', e => {
+    const url = e.target.value.trim();
+    const preview = document.getElementById('imgPreview');
+    if (url.startsWith('http')) {
+      preview.src = url;
+      preview.style.display = 'block';
+    } else {
+      preview.style.display = 'none';
+    }
+  });
 
-            try {
-                await addDoc(collection(db, 'stories'), {
-                    title,
-                    content,
-                    timestamp: new Date(),
-                    createdAt: new Date().toISOString()
-                });
-                showStatus('✅ История запазена успешно!', 'success');
-                storyForm.reset();
-                loadStories();
-            } catch (error) {
-                showStatus('❌ Грешка при запазване!', 'error');
-                console.error(error);
-            }
-        });
+  document.getElementById('addPhotoBtn').addEventListener('click', async () => {
+    const url = document.getElementById('photoUrl').value.trim();
+    if (!url || !url.startsWith('http')) { showToast('Въведи валиден линк!'); return; }
+    const btn = document.getElementById('addPhotoBtn');
+    btn.disabled = true; btn.textContent = 'Добавя се...';
+    await addDoc(collection(db, 'photos'), {
+      url,
+      caption:   document.getElementById('photoCaption').value,
+      date:      document.getElementById('photoDate').value,
+      createdAt: Date.now()
+    });
+    document.getElementById('photoUrl').value = '';
+    document.getElementById('photoCaption').value = '';
+    document.getElementById('photoDate').value = '';
+    document.getElementById('imgPreview').style.display = 'none';
+    btn.disabled = false; btn.textContent = 'Добави снимката 💕';
+    showToast('Снимката е добавена! 💕');
+    loadPhotos();
+  });
+}
 
-        async function loadStories() {
-            try {
-                const q = query(collection(db, 'stories'), orderBy('timestamp', 'desc'));
-                const querySnapshot = await getDocs(q);
-                storiesList.innerHTML = '';
+async function deletePhoto(id) {
+  await deleteDoc(doc(db, 'photos', id));
+  showToast('Снимката е изтрита.');
+  loadPhotos();
+}
 
-                if (querySnapshot.empty) {
-                    storiesList.innerHTML = '<div class="empty-message">Още няма истории. Напиши първото послание!</div>';
-                    return;
-                }
+// ── LIGHTBOX ─────────────────────────────────────────────
+function initLightbox() {
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  document.getElementById('lightboxPrev').addEventListener('click', () => navLightbox(-1));
+  document.getElementById('lightboxNext').addEventListener('click', () => navLightbox(1));
+  document.getElementById('lightbox').addEventListener('click', e => {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  });
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navLightbox(-1);
+    if (e.key === 'ArrowRight') navLightbox(1);
+  });
+}
+function openLightbox(i) {
+  currentPhotoIdx = i; updateLightbox();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function navLightbox(d) {
+  currentPhotoIdx = (currentPhotoIdx + d + photos.length) % photos.length;
+  updateLightbox();
+}
+function updateLightbox() {
+  const p = photos[currentPhotoIdx];
+  const img = document.getElementById('lightboxImg');
+  img.style.opacity = '0';
+  setTimeout(() => {
+    img.src = p.url;
+    document.getElementById('lightboxCaption').textContent = [p.caption, p.date].filter(Boolean).join(' · ');
+    img.style.opacity = '1';
+  }, 150);
+}
 
-                querySnapshot.forEach((docSnap) => {
-                    const data = docSnap.data();
-                    const date = new Date(data.createdAt).toLocaleDateString('bg-BG');
+// ── ИСТОРИЙКИ ────────────────────────────────────────────
+async function loadStories() {
+  const snap = await getDocs(query(collection(db, 'stories'), orderBy('createdAt', 'desc')));
+  stories = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  renderStories();
+}
 
-                    const card = document.createElement('div');
-                    card.className = 'story-card';
-                    card.innerHTML = `
-                        <button class="delete-story" onclick="deleteStory('${docSnap.id}')">Изтрий</button>
-                        <h3>${data.title}</h3>
-                        <div class="date">${date}</div>
-                        <p>${data.content}</p>
-                    `;
-                    storiesList.appendChild(card);
-                });
-            } catch (error) {
-                console.error('Грешка при зареждане на истории:', error);
-            }
-        }
+function renderStories() {
+  const grid = document.getElementById('storiesGrid');
+  grid.innerHTML = '';
+  if (!stories.length) {
+    grid.innerHTML = '<div class="empty-msg">✍️ Все още няма историйки — напиши първата!</div>';
+    return;
+  }
+  const colors = ['#FFD93D','#FF6B9D','#6BCB77','#90B4CE','#FF9A3C','#A855F7'];
+  stories.forEach((s, i) => {
+    const card = document.createElement('div'); card.className = 'story-card';
+    card.style.borderTopColor = colors[i % colors.length];
+    card.innerHTML = `
+      <div class="story-emoji">${s.emoji||'✨'}</div>
+      ${s.date?`<span class="story-date">${s.date}</span>`:''}
+      <h3 class="story-title">${s.title}</h3>
+      <p class="story-preview">${s.preview||''}</p>
+      <button class="story-read-btn">прочети ♡</button>
+      <button class="story-del-btn" title="Изтрий">✕</button>`;
+    card.querySelector('.story-read-btn').addEventListener('click', () => openStory(i));
+    card.querySelector('.story-del-btn').addEventListener('click', () => {
+      if (confirm('Изтрий историйката?')) deleteStory(s.id);
+    });
+    grid.appendChild(card);
+  });
+}
 
-        window.deleteStory = async function(id) {
-            if (confirm('Сигурна ли си, че искаш да изтриеш тази история?')) {
-                try {
-                    await deleteDoc(doc(db, 'stories', id));
-                    showStatus('✅ История изтрита!', 'success');
-                    loadStories();
-                } catch (error) {
-                    showStatus('❌ Грешка при изтриване!', 'error');
-                }
-            }
-        };
+function initStoryForm() {
+  document.getElementById('addStoryBtn').addEventListener('click', async () => {
+    const title   = document.getElementById('storyTitle').value.trim();
+    const content = document.getElementById('storyContent').value.trim();
+    if (!title || !content) { showToast('Добави поне заглавие и текст!'); return; }
+    const btn = document.getElementById('addStoryBtn');
+    btn.disabled = true; btn.textContent = 'Запазва се...';
+    await addDoc(collection(db, 'stories'), {
+      title, content,
+      preview:   document.getElementById('storyPreview').value.trim(),
+      emoji:     document.getElementById('storyEmoji').value || '✨',
+      date:      document.getElementById('storyDate').value,
+      createdAt: Date.now()
+    });
+    ['storyTitle','storyContent','storyPreview','storyEmoji','storyDate']
+      .forEach(id => document.getElementById(id).value = '');
+    btn.disabled = false; btn.textContent = 'Запази историйката 💕';
+    showToast('Историйката е запазена! 💕');
+    loadStories();
+  });
+}
 
-        // ЗАТВАРЯНЕМЕ В МОДАЛА
-        closeModal.addEventListener('click', () => {
-            imageModal.style.display = 'none';
-        });
-        imageModal.addEventListener('click', (e) => {
-            if (e.target === imageModal) {
-                imageModal.style.display = 'none';
-            }
-        });
+async function deleteStory(id) {
+  await deleteDoc(doc(db, 'stories', id));
+  showToast('Историйката е изтрита.');
+  loadStories();
+}
 
-        // ЗАРЕЖДАНЕ НА ДАННИ ПРИ СТРАНИЦА
-        loadPhotos();
-        loadStories();
-    </script>
+function initStoryModal() {
+  document.getElementById('storyClose').addEventListener('click', closeStory);
+  document.getElementById('storyModal').addEventListener('click', e => {
+    if (e.target === document.getElementById('storyModal')) closeStory();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeStory(); });
+}
+function openStory(i) {
+  const s = stories[i];
+  document.getElementById('storyModalContent').innerHTML = `
+    <div class="story-modal-emoji">${s.emoji||'✨'}</div>
+    <h2 class="story-modal-title">${s.title}</h2>
+    ${s.date?`<p class="story-modal-date">${s.date}</p>`:''}
+    <div class="story-modal-body">${s.content}</div>`;
+  document.getElementById('storyModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeStory() {
+  document.getElementById('storyModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function initNavSmooth() {
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      document.querySelector(link.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
 </body>
 </html>
